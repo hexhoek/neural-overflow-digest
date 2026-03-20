@@ -59,14 +59,14 @@
             '<span class="issue-date">' + iss.date + '</span>' +
             '</div>' +
             '<div class="issue-desc">' + escapeHtml(iss.description) + '</div>' +
-            '<div class="issue-actions">' +
-            '<a class="issue-action" href="' + readHref + '" aria-label="Read issue ' + iss.number + '">&gt; READ</a>';
+            '<div class="issue-actions">';
 
           if (listenHref) {
             html += '<a class="issue-action issue-action-listen" href="' + listenHref + '" aria-label="Listen to issue ' + iss.number + '">&gt; LISTEN</a>';
           }
 
-          html += '</div></li>';
+          html += '<a class="issue-action" href="' + readHref + '" aria-label="Read issue ' + iss.number + '">&gt; READ</a>' +
+            '</div></li>';
         });
 
         listEl.innerHTML = html;
