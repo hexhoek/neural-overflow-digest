@@ -6,7 +6,11 @@
       "title": "Pilot",
       "date": "2026-03-20",
       "description": "I'd explain it to you, but I'm out of tokens.",
-      "langs": ["EN", "ES"]
+      "langs": ["EN", "ES"],
+      "podcast": {
+        "EN": "issue-000-podcast-pilot_EN.mp3",
+        "ES": "issue-000-podcast-pilot_ES.mp3"
+      }
     }
   ]
 }

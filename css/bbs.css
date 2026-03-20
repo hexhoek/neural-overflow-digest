@@ -206,21 +206,20 @@ body.scanlines::after {
   line-height: 1.5;
 }
 
-.issue-block {
-  display: block;
+.issue-item {
   padding: 10px 12px;
-  color: var(--green);
-  text-decoration: none;
   border: 1px solid transparent;
-  transition: border-color 0.15s, background 0.15s, text-shadow 0.15s;
+  transition: border-color 0.15s, background 0.15s;
 }
 
-.issue-block:hover,
-.issue-block.kb-focus {
+.issue-item:hover,
+.issue-item.kb-focus {
   border-color: var(--green);
   background: rgba(0, 255, 65, 0.05);
-  text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
-  text-decoration: none;
+}
+
+.issue-info {
+  margin-bottom: 2px;
 }
 
 .issue-number {
@@ -247,6 +246,36 @@ body.scanlines::after {
   color: var(--dim);
   padding-left: 6ch;
   font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.issue-actions {
+  padding-left: 6ch;
+  display: flex;
+  gap: 16px;
+}
+
+.issue-action {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  transition: text-shadow 0.15s;
+}
+
+.issue-action:hover {
+  text-shadow: 0 0 8px var(--glow-green);
+  text-decoration: none;
+  color: var(--green);
+}
+
+.issue-action-listen {
+  color: var(--cyan);
+}
+
+.issue-action-listen:hover {
+  color: var(--cyan);
+  text-shadow: 0 0 8px var(--glow-cyan);
 }
 
 /* ── Links ───────────────────────────────────────── */
@@ -355,6 +384,116 @@ a:focus-visible {
   font-weight: 700;
 }
 
+/* ── Podcast Page ────────────────────────────────── */
+
+.podcast-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.podcast-main {
+  padding: 24px 0;
+  text-align: center;
+}
+
+.podcast-mode-label {
+  color: var(--cyan);
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 24px;
+  text-shadow: 0 0 8px var(--glow-cyan);
+}
+
+/* Equalizer */
+.podcast-equalizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  height: 150px;
+  margin-bottom: 24px;
+  padding: 0 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border);
+}
+
+.eq-bar {
+  width: 8px;
+  min-width: 4px;
+  height: 2px;
+  background: var(--green);
+  box-shadow: 0 0 4px var(--glow-green);
+  transition: height 0.06s ease-out;
+  border-radius: 1px 1px 0 0;
+}
+
+.podcast-equalizer.active .eq-bar {
+  opacity: 1;
+}
+
+/* Controls */
+.podcast-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.podcast-btn {
+  background: none;
+  border: 1px solid var(--dim);
+  color: var(--green);
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, text-shadow 0.15s;
+}
+
+.podcast-btn:hover {
+  border-color: var(--green);
+  text-shadow: 0 0 6px var(--glow-green);
+}
+
+.podcast-btn.playing {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  text-shadow: 0 0 6px var(--glow-cyan);
+}
+
+.podcast-time {
+  color: var(--dim);
+  font-size: 13px;
+  min-width: 12ch;
+}
+
+/* Progress bar */
+.podcast-progress-wrap {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.podcast-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  cursor: pointer;
+  position: relative;
+}
+
+.podcast-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--green);
+  box-shadow: 0 0 8px var(--glow-green);
+  transition: width 0.1s linear;
+}
+
 /* ── Scanline Toggle Hint ────────────────────────── */
 
 .scanline-hint {
@@ -395,9 +534,23 @@ a:focus-visible {
     padding-left: 2ch;
   }
 
-  .reader-header {
+  .reader-header,
+  .podcast-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .issue-actions {
+    padding-left: 2ch;
+  }
+
+  .podcast-equalizer {
+    height: 80px;
+  }
+
+  .podcast-btn {
+    font-size: 12px;
+    padding: 4px 10px;
   }
 
   .reader-content pre {

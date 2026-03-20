@@ -5,35 +5,40 @@
 (function () {
   'use strict';
 
-  const ISSUES_PATH = 'issues/';
-  const MANIFEST = ISSUES_PATH + 'index.json';
+  var ISSUES_PATH = 'issues/';
+  var MANIFEST = ISSUES_PATH + 'index.json';
 
   /* ── Utilities ───────────────────────────────────── */
 
   function getParams() {
-    const p = new URLSearchParams(window.location.search);
+    var p = new URLSearchParams(window.location.search);
     return { issue: p.get('issue'), lang: p.get('lang') || 'EN' };
   }
 
   function dots(maxLen, usedLen) {
-    const count = maxLen - usedLen;
+    var count = maxLen - usedLen;
     return count > 2 ? ' ' + '.'.repeat(count) + ' ' : ' ';
   }
 
   function escapeHtml(str) {
-    const div = document.createElement('div');
+    var div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  function fmt(s) {
+    var m = Math.floor(s / 60);
+    var sec = Math.floor(s % 60);
+    return (m < 10 ? '0' : '') + m + ':' + (sec < 10 ? '0' : '') + sec;
   }
 
   /* ── Index Page ──────────────────────────────────── */
 
   function initIndex() {
-    const listEl = document.getElementById('issue-list');
-
+    var listEl = document.getElementById('issue-list');
     if (!listEl) return;
 
-    fetch(MANIFEST)
+    fetch(MANIFEST, { cache: 'no-cache' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var issues = data.issues || [];
@@ -43,24 +48,31 @@
           var titleStr = '[' + iss.number + '] ' + iss.title.toUpperCase();
           var dotStr = dots(50, titleStr.length + iss.date.length);
           var defaultLang = iss.langs[0] || 'EN';
-          var href = 'reader.html?issue=' + iss.number + '&lang=' + defaultLang;
+          var readHref = 'reader.html?issue=' + iss.number + '&lang=' + defaultLang;
+          var listenHref = iss.podcast ? 'podcast.html?issue=' + iss.number + '&lang=' + defaultLang : '';
 
           html += '<li class="issue-item">' +
-            '<a class="issue-block" href="' + href + '" aria-label="Read issue ' + iss.number + ': ' + iss.title + '">' +
+            '<div class="issue-info">' +
             '<span class="issue-number">[' + iss.number + ']</span> ' +
             '<span class="issue-title">' + escapeHtml(iss.title.toUpperCase()) + '</span>' +
             '<span class="issue-dots">' + dotStr + '</span>' +
             '<span class="issue-date">' + iss.date + '</span>' +
-            '<span class="issue-desc">' + escapeHtml(iss.description) + '</span>' +
-            '</a></li>';
+            '</div>' +
+            '<div class="issue-desc">' + escapeHtml(iss.description) + '</div>' +
+            '<div class="issue-actions">' +
+            '<a class="issue-action" href="' + readHref + '" aria-label="Read issue ' + iss.number + '">&gt; READ</a>';
+
+          if (listenHref) {
+            html += '<a class="issue-action issue-action-listen" href="' + listenHref + '" aria-label="Listen to issue ' + iss.number + '">&gt; LISTEN</a>';
+          }
+
+          html += '</div></li>';
         });
 
         listEl.innerHTML = html;
       })
       .catch(function () {
-        if (listEl) {
-          listEl.innerHTML = '<li class="error-message">ERROR: FAILED TO LOAD MANIFEST</li>';
-        }
+        listEl.innerHTML = '<li class="error-message">ERROR: FAILED TO LOAD MANIFEST</li>';
       });
   }
 
@@ -79,8 +91,7 @@
       return;
     }
 
-    // Load manifest first to get issue metadata
-    fetch(MANIFEST)
+    fetch(MANIFEST, { cache: 'no-cache' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         var issues = data.issues || [];
@@ -102,7 +113,6 @@
           titleEl.textContent = 'Issue #' + meta.number + ': ' + meta.title.toUpperCase();
         }
 
-        // Build language toggle
         if (langLinksEl) {
           var lhtml = '';
           meta.langs.forEach(function (lang) {
@@ -114,10 +124,7 @@
           langLinksEl.innerHTML = lhtml;
         }
 
-        // Intercept lang links for no-reload switch
-        setupLangToggle(contentEl, meta, params.lang);
-
-        // Load the text
+        setupLangToggle(contentEl, meta, params.lang, 'reader.html');
         loadIssueText(contentEl, meta.number, meta.slug, params.lang);
       })
       .catch(function () {
@@ -137,18 +144,17 @@
         contentEl.innerHTML = '<pre>' + escapeHtml(text) + '</pre>';
       })
       .catch(function () {
-        contentEl.innerHTML = '<div class="error-message">' +
-          'TRANSMISSION NOT AVAILABLE IN THIS FREQUENCY' + '</div>';
+        contentEl.innerHTML = '<div class="error-message">TRANSMISSION NOT AVAILABLE IN THIS FREQUENCY</div>';
       });
   }
 
-  function setupLangToggle(contentEl, meta, currentLang) {
+  function setupLangToggle(contentEl, meta, currentLang, page) {
     document.addEventListener('click', function (e) {
       var link = e.target.closest('.lang-link');
       if (!link) return;
 
       var href = link.getAttribute('href');
-      if (!href || !href.includes('reader.html')) return;
+      if (!href || !href.includes(page)) return;
 
       e.preventDefault();
 
@@ -156,55 +162,241 @@
       var newLang = p.get('lang');
       if (newLang === currentLang) return;
 
-      // Update URL without reload
-      var newUrl = 'reader.html?issue=' + meta.number + '&lang=' + newLang;
+      var newUrl = page + '?issue=' + meta.number + '&lang=' + newLang;
       window.history.pushState(null, '', newUrl);
 
-      // Update active state
       document.querySelectorAll('.lang-link').forEach(function (el) {
         var elLang = new URLSearchParams(el.getAttribute('href').split('?')[1]).get('lang');
         el.classList.toggle('active', elLang === newLang);
       });
 
-      // Load new text
       currentLang = newLang;
-      loadIssueText(contentEl, meta.number, meta.slug, newLang);
+
+      if (contentEl) {
+        loadIssueText(contentEl, meta.number, meta.slug, newLang);
+      }
     });
   }
 
-  /* ── Effects ─────────────────────────────────────── */
+  /* ── Podcast Page — Web Audio API Equalizer ──────── */
 
-  function typeEffect(el, text) {
-    el.textContent = '';
-    var i = 0;
+  function initPodcast() {
+    var titleEl = document.getElementById('podcast-issue-title');
+    var langLinksEl = document.getElementById('podcast-lang-links');
+    var eqEl = document.getElementById('podcast-equalizer');
+    var audioEl = document.getElementById('podcast-audio');
+    var playBtn = document.getElementById('podcast-play');
+    var stopBtn = document.getElementById('podcast-stop');
+    var timeEl = document.getElementById('podcast-time');
+    var barEl = document.getElementById('podcast-bar');
+    var fillEl = document.getElementById('podcast-fill');
 
-    function tick() {
-      if (i < text.length) {
-        el.textContent += text.charAt(i);
-        i++;
-        setTimeout(tick, 40);
-      } else {
-        el.innerHTML = text + '<span class="cursor">█</span>';
+    if (!audioEl || !eqEl) return;
+
+    var params = getParams();
+    if (!params.issue) return;
+
+    var audioCtx = null;
+    var analyser = null;
+    var source = null;
+    var dataArray = null;
+    var animId = null;
+    var currentLang = params.lang;
+
+    // Build equalizer bars
+    var BAR_COUNT = 32;
+    var bars = [];
+    for (var i = 0; i < BAR_COUNT; i++) {
+      var bar = document.createElement('div');
+      bar.className = 'eq-bar';
+      eqEl.appendChild(bar);
+      bars.push(bar);
+    }
+
+    fetch(MANIFEST, { cache: 'no-cache' })
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var issues = data.issues || [];
+        var meta = null;
+
+        for (var i = 0; i < issues.length; i++) {
+          if (issues[i].number === params.issue) {
+            meta = issues[i];
+            break;
+          }
+        }
+
+        if (!meta || !meta.podcast) {
+          eqEl.innerHTML = '<div class="error-message">NO AUDIO TRANSMISSION FOUND</div>';
+          return;
+        }
+
+        if (titleEl) {
+          titleEl.textContent = 'Issue #' + meta.number + ': ' + meta.title.toUpperCase();
+        }
+
+        // Build lang toggle
+        if (langLinksEl) {
+          var lhtml = '';
+          meta.langs.forEach(function (lang) {
+            if (meta.podcast[lang]) {
+              var isActive = lang === currentLang;
+              lhtml += '<a class="lang-link' + (isActive ? ' active' : '') +
+                '" href="podcast.html?issue=' + meta.number + '&lang=' + lang +
+                '" aria-label="Switch to ' + lang + '">[' + lang + ']</a> ';
+            }
+          });
+          langLinksEl.innerHTML = lhtml;
+        }
+
+        // Set initial audio
+        audioEl.src = ISSUES_PATH + meta.podcast[currentLang];
+
+        // Lang toggle for podcast
+        document.addEventListener('click', function (e) {
+          var link = e.target.closest('.lang-link');
+          if (!link) return;
+          var href = link.getAttribute('href');
+          if (!href || !href.includes('podcast.html')) return;
+          e.preventDefault();
+
+          var p = new URLSearchParams(href.split('?')[1]);
+          var newLang = p.get('lang');
+          if (newLang === currentLang || !meta.podcast[newLang]) return;
+
+          currentLang = newLang;
+          var wasPlaying = !audioEl.paused;
+          audioEl.src = ISSUES_PATH + meta.podcast[newLang];
+
+          window.history.pushState(null, '', 'podcast.html?issue=' + meta.number + '&lang=' + newLang);
+
+          document.querySelectorAll('.lang-link').forEach(function (el) {
+            var elLang = new URLSearchParams(el.getAttribute('href').split('?')[1]).get('lang');
+            el.classList.toggle('active', elLang === newLang);
+          });
+
+          if (wasPlaying) {
+            audioEl.play().then(function () {
+              ensureAudioContext();
+            });
+          }
+        });
+      });
+
+    // Web Audio API setup
+    function ensureAudioContext() {
+      if (audioCtx) return;
+
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser = audioCtx.createAnalyser();
+      analyser.fftSize = 128;
+      source = audioCtx.createMediaElementSource(audioEl);
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      dataArray = new Uint8Array(analyser.frequencyBinCount);
+    }
+
+    function drawEqualizer() {
+      animId = requestAnimationFrame(drawEqualizer);
+
+      if (!analyser || audioEl.paused) return;
+
+      analyser.getByteFrequencyData(dataArray);
+
+      for (var i = 0; i < BAR_COUNT; i++) {
+        // Map bar index to frequency bin
+        var binIndex = Math.floor(i * dataArray.length / BAR_COUNT);
+        var value = dataArray[binIndex];
+        var height = Math.max(2, (value / 255) * 120);
+        bars[i].style.height = height + 'px';
+
+        // Color based on intensity
+        if (value > 200) {
+          bars[i].style.background = 'var(--amber)';
+          bars[i].style.boxShadow = '0 0 6px var(--glow-amber)';
+        } else if (value > 120) {
+          bars[i].style.background = 'var(--cyan)';
+          bars[i].style.boxShadow = '0 0 6px var(--glow-cyan)';
+        } else {
+          bars[i].style.background = 'var(--green)';
+          bars[i].style.boxShadow = '0 0 4px var(--glow-green)';
+        }
       }
     }
 
-    tick();
+    // Play / Pause
+    playBtn.addEventListener('click', function () {
+      if (audioEl.paused) {
+        audioEl.play().then(function () {
+          ensureAudioContext();
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+          eqEl.classList.add('active');
+          playBtn.textContent = '[❚❚ PAUSE]';
+          playBtn.classList.add('playing');
+          drawEqualizer();
+        });
+      } else {
+        audioEl.pause();
+        eqEl.classList.remove('active');
+        playBtn.textContent = '[▶ PLAY]';
+        playBtn.classList.remove('playing');
+        if (animId) cancelAnimationFrame(animId);
+      }
+    });
+
+    // Stop
+    stopBtn.addEventListener('click', function () {
+      audioEl.pause();
+      audioEl.currentTime = 0;
+      eqEl.classList.remove('active');
+      playBtn.textContent = '[▶ PLAY]';
+      playBtn.classList.remove('playing');
+      fillEl.style.width = '0%';
+      if (animId) cancelAnimationFrame(animId);
+      bars.forEach(function (b) { b.style.height = '2px'; });
+    });
+
+    // Progress
+    audioEl.addEventListener('timeupdate', function () {
+      if (audioEl.duration) {
+        var pct = (audioEl.currentTime / audioEl.duration) * 100;
+        fillEl.style.width = pct + '%';
+        timeEl.textContent = fmt(audioEl.currentTime) + ' / ' + fmt(audioEl.duration);
+      }
+    });
+
+    // Seek
+    barEl.addEventListener('click', function (e) {
+      if (audioEl.duration) {
+        var rect = barEl.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        audioEl.currentTime = (x / rect.width) * audioEl.duration;
+      }
+    });
+
+    // Ended
+    audioEl.addEventListener('ended', function () {
+      playBtn.textContent = '[▶ PLAY]';
+      playBtn.classList.remove('playing');
+      eqEl.classList.remove('active');
+      if (animId) cancelAnimationFrame(animId);
+      bars.forEach(function (b) { b.style.height = '2px'; });
+    });
   }
 
-  /* ── Keyboard Navigation (arrows + enter) ────────── */
+  /* ── Keyboard Navigation ───────────────────────── */
 
   function initKeyboardNav() {
     var focusIndex = -1;
 
     document.addEventListener('keydown', function (e) {
-      // Scanline toggle
       if (e.key === 's' || e.key === 'S') {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON') return;
         document.body.classList.toggle('scanlines');
         return;
       }
 
-      var items = document.querySelectorAll('.issue-block');
+      var items = document.querySelectorAll('.issue-item');
       if (!items.length) return;
 
       if (e.key === 'ArrowDown' || e.key === 'j') {
@@ -215,9 +407,6 @@
         e.preventDefault();
         focusIndex = Math.max(focusIndex - 1, 0);
         updateFocus(items, focusIndex);
-      } else if (e.key === 'Enter' && focusIndex >= 0 && focusIndex < items.length) {
-        e.preventDefault();
-        items[focusIndex].click();
       }
     });
   }
@@ -242,9 +431,9 @@
     initKeyboardNav();
     initIndex();
     initReader();
+    initPodcast();
   });
 
-  // Handle browser back/forward in reader
   window.addEventListener('popstate', function () {
     initReader();
   });
