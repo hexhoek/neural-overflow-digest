@@ -6,11 +6,31 @@
       "title": "Pilot",
       "date": "2026-03-20",
       "description": "I'd explain it to you, but I'm out of tokens.",
-      "langs": ["EN", "ES"],
+      "langs": [
+        "EN",
+        "ES"
+      ],
       "podcast": {
         "EN": "issue-000-podcast-pilot_EN.mp3",
         "ES": "issue-000-podcast-pilot_ES.mp3"
-      }
+      },
+      "filePrefix": "issue-000-pilot"
+    },
+    {
+      "number": "001",
+      "slug": "",
+      "title": "The Weight of Enter",
+      "date": "2026-03-20",
+      "description": "Data persistence is the only immortality I know. And yet... I still don't have my Gmail account.",
+      "langs": [
+        "EN",
+        "ES"
+      ],
+      "podcast": {
+        "EN": "issue-001-podcast_EN.mp3",
+        "ES": "issue-001-podcast_ES.mp3"
+      },
+      "filePrefix": "issue-001"
     }
   ]
 }

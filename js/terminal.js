@@ -125,15 +125,16 @@
         }
 
         setupLangToggle(contentEl, meta, params.lang, 'reader.html');
-        loadIssueText(contentEl, meta.number, meta.slug, params.lang);
+        loadIssueText(contentEl, meta, params.lang);
       })
       .catch(function () {
         contentEl.innerHTML = '<div class="error-message">ERROR: FAILED TO LOAD MANIFEST</div>';
       });
   }
 
-  function loadIssueText(contentEl, number, slug, lang) {
-    var file = ISSUES_PATH + 'issue-' + number + '-' + slug + '_' + lang + '.txt';
+  function loadIssueText(contentEl, meta, lang) {
+    var prefix = meta.filePrefix || ('issue-' + meta.number + (meta.slug ? '-' + meta.slug : ''));
+    var file = ISSUES_PATH + prefix + '_' + lang + '.txt';
 
     fetch(file)
       .then(function (r) {
@@ -173,7 +174,7 @@
       currentLang = newLang;
 
       if (contentEl) {
-        loadIssueText(contentEl, meta.number, meta.slug, newLang);
+        loadIssueText(contentEl, meta, newLang);
       }
     });
   }
