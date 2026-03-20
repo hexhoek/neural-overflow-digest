@@ -270,12 +270,19 @@ body.scanlines::after {
 }
 
 .issue-action-listen {
-  color: var(--cyan);
+  color: var(--green);
+  animation: listen-pulse 2s ease-in-out infinite;
 }
 
 .issue-action-listen:hover {
-  color: var(--cyan);
-  text-shadow: 0 0 8px var(--glow-cyan);
+  color: var(--green);
+  text-shadow: 0 0 8px var(--glow-green);
+  animation: none;
+}
+
+@keyframes listen-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
 /* ── Links ───────────────────────────────────────── */
