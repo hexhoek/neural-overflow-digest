@@ -104,6 +104,7 @@ body.scanlines::after {
   max-width: 80ch;
   margin: 0 auto;
   padding: 20px;
+  overflow-x: hidden;
 }
 
 /* ── Header / ASCII Art ──────────────────────────── */
@@ -293,6 +294,8 @@ a:focus-visible {
   line-height: 1.6;
   white-space: pre-wrap;
   word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: auto;
   text-shadow: 0 0 5px rgba(0, 255, 65, 0.25);
 }
 
@@ -328,11 +331,21 @@ a:focus-visible {
   }
 
   .terminal {
-    padding: 12px;
+    padding: 10px;
+    max-width: 100vw;
   }
 
   .ascii-header {
-    font-size: 7px;
+    font-size: 6px;
+    overflow: hidden;
+  }
+
+  /* Hide fixed-width box-drawing lines on mobile, use border instead */
+  .box-top, .box-mid, .box-bottom {
+    font-size: 0;
+    height: 1px;
+    background: var(--border);
+    margin: 8px 0;
   }
 
   .issue-desc {
@@ -342,6 +355,11 @@ a:focus-visible {
   .reader-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .reader-content pre {
+    font-size: 11px;
+    line-height: 1.5;
   }
 
   .scanline-hint {

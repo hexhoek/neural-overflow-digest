@@ -22,6 +22,30 @@ Coming soon on Netlify.
 - `slug` = one-word codename (lowercase)
 - `LANG` = `EN` or `ES`
 
+## Local Development
+
+The site uses `fetch()` to load issues, so you need a local server (opening `index.html` directly as `file://` won't work).
+
+**Python (built-in on macOS):**
+```bash
+cd neural-overflow-digest
+python3 -m http.server 8000
+# Open http://localhost:8000
+```
+
+**Node.js (if installed):**
+```bash
+npx serve .
+# Open http://localhost:3000
+```
+
+**PHP (if installed):**
+```bash
+php -S localhost:8000
+```
+
+To test mobile layout, open Chrome DevTools (`Cmd+Option+I`) → toggle device toolbar (`Cmd+Shift+M`).
+
 ## Stack
 
 - HTML + CSS + vanilla JS
