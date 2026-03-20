@@ -30,8 +30,6 @@
 
   function initIndex() {
     const listEl = document.getElementById('issue-list');
-    const statsEl = document.getElementById('stats');
-    const readyEl = document.getElementById('ready-line');
 
     if (!listEl) return;
 
@@ -44,33 +42,20 @@
         issues.forEach(function (iss) {
           var titleStr = '[' + iss.number + '] ' + iss.title.toUpperCase();
           var dotStr = dots(50, titleStr.length + iss.date.length);
-          var langs = '';
-
-          iss.langs.forEach(function (lang) {
-            langs += ' <a class="lang-link" href="reader.html?issue=' +
-              iss.number + '&lang=' + lang + '" aria-label="Read issue ' +
-              iss.number + ' in ' + lang + '">[' + lang + ']</a>';
-          });
+          var defaultLang = iss.langs[0] || 'EN';
+          var href = 'reader.html?issue=' + iss.number + '&lang=' + defaultLang;
 
           html += '<li class="issue-item">' +
+            '<a class="issue-block" href="' + href + '" aria-label="Read issue ' + iss.number + ': ' + iss.title + '">' +
             '<span class="issue-number">[' + iss.number + ']</span> ' +
             '<span class="issue-title">' + escapeHtml(iss.title.toUpperCase()) + '</span>' +
             '<span class="issue-dots">' + dotStr + '</span>' +
             '<span class="issue-date">' + iss.date + '</span>' +
-            langs +
-            '<div class="issue-desc">' + escapeHtml(iss.description) + '</div>' +
-            '</li>';
+            '<span class="issue-desc">' + escapeHtml(iss.description) + '</span>' +
+            '</a></li>';
         });
 
         listEl.innerHTML = html;
-
-        if (statsEl) {
-          var lastDate = issues.length ? issues[issues.length - 1].date : '—';
-          statsEl.textContent = 'SYS: ' + issues.length + ' issue' +
-            (issues.length !== 1 ? 's' : '') + ' loaded | Last update: ' + lastDate;
-        }
-
-        if (readyEl) typeEffect(readyEl, '> READY.  ');
       })
       .catch(function () {
         if (listEl) {
@@ -206,25 +191,55 @@
     tick();
   }
 
-  /* ── Scanlines Toggle (S key) ────────────────────── */
+  /* ── Keyboard Navigation (arrows + enter) ────────── */
 
-  function initScanlines() {
-    // Default: scanlines on
-    document.body.classList.add('scanlines');
+  function initKeyboardNav() {
+    var focusIndex = -1;
 
     document.addEventListener('keydown', function (e) {
+      // Scanline toggle
       if (e.key === 's' || e.key === 'S') {
-        // Don't toggle if user is typing in an input
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
         document.body.classList.toggle('scanlines');
+        return;
+      }
+
+      var items = document.querySelectorAll('.issue-block');
+      if (!items.length) return;
+
+      if (e.key === 'ArrowDown' || e.key === 'j') {
+        e.preventDefault();
+        focusIndex = Math.min(focusIndex + 1, items.length - 1);
+        updateFocus(items, focusIndex);
+      } else if (e.key === 'ArrowUp' || e.key === 'k') {
+        e.preventDefault();
+        focusIndex = Math.max(focusIndex - 1, 0);
+        updateFocus(items, focusIndex);
+      } else if (e.key === 'Enter' && focusIndex >= 0 && focusIndex < items.length) {
+        e.preventDefault();
+        items[focusIndex].click();
       }
     });
+  }
+
+  function updateFocus(items, index) {
+    items.forEach(function (el, i) {
+      el.classList.toggle('kb-focus', i === index);
+    });
+    items[index].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+
+  /* ── Scanlines ─────────────────────────────────── */
+
+  function initScanlines() {
+    document.body.classList.add('scanlines');
   }
 
   /* ── Init ────────────────────────────────────────── */
 
   document.addEventListener('DOMContentLoaded', function () {
     initScanlines();
+    initKeyboardNav();
     initIndex();
     initReader();
   });

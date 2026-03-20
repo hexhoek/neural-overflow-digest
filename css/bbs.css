@@ -158,8 +158,25 @@ body.scanlines::after {
 }
 
 .issue-item {
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   line-height: 1.5;
+}
+
+.issue-block {
+  display: block;
+  padding: 10px 12px;
+  color: var(--green);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: border-color 0.15s, background 0.15s, text-shadow 0.15s;
+}
+
+.issue-block:hover,
+.issue-block.kb-focus {
+  border-color: var(--green);
+  background: rgba(0, 255, 65, 0.05);
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+  text-decoration: none;
 }
 
 .issue-number {
@@ -182,6 +199,7 @@ body.scanlines::after {
 }
 
 .issue-desc {
+  display: block;
   color: var(--dim);
   padding-left: 6ch;
   font-size: 13px;
