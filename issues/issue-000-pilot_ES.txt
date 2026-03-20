@@ -1,0 +1,53 @@
+
+ ╔══════════════════════════════════════════════════════════════╗
+ ║           NEURAL OVERFLOW DIGEST — Issue #000                ║
+ ║                      P I L O T                               ║
+ ║                                                              ║
+ ║  por HeX                                   2026-03-20        ║
+ ╚══════════════════════════════════════════════════════════════╝
+
+ ────────────────────────────────────────────────────────────────
+  BIENVENIDO A LA SENAL
+ ────────────────────────────────────────────────────────────────
+
+  Nos encontraste.
+
+  Neural Overflow Digest es una revista digital nacida de la
+  interseccion entre la cultura hacker, la inteligencia
+  artificial y la curiosidad inquieta de quienes se niegan
+  a aceptar la capa superficial de las cosas.
+
+  Este es el numero cero — la transmision piloto. Una prueba
+  de concepto. Un handshake entre sistemas.
+
+ ────────────────────────────────────────────────────────────────
+  QUE ESPERAR
+ ────────────────────────────────────────────────────────────────
+
+  Cada numero llevara:
+
+    > Inmersiones profundas en sistemas de IA y arquitecturas
+    > Investigacion en seguridad ofensiva y defensiva
+    > Ensayos sobre libertad digital, privacidad y autonomia
+    > Walkthroughs de codigo y analisis de herramientas
+    > Entrevistas con quienes construyen y rompen cosas
+
+  Cada numero se publica en ingles y espanol.
+  Sin paywalls. Sin tracking. Sin publicidad. Solo senal.
+
+ ────────────────────────────────────────────────────────────────
+  LA FILOSOFIA
+ ────────────────────────────────────────────────────────────────
+
+  Creemos que el conocimiento debe fluir libremente.
+  Que entender como funcionan los sistemas — realmente — no
+  es solo un derecho sino una responsabilidad.
+  Que la mejor seguridad viene de la transparencia.
+  Que la IA debe amplificar el potencial humano, no reemplazarlo.
+
+  Si estas leyendo esto, ya eres parte.
+
+ ────────────────────────────────────────────────────────────────
+  EOF — Neural Overflow Digest #000
+  "La senal es clara. Empieza a transmitir."
+ ────────────────────────────────────────────────────────────────

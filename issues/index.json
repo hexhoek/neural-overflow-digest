@@ -1,0 +1,12 @@
+{
+  "issues": [
+    {
+      "number": "000",
+      "slug": "pilot",
+      "title": "Pilot",
+      "date": "2026-03-20",
+      "description": "The first transmission. Welcome to Neural Overflow.",
+      "langs": ["EN", "ES"]
+    }
+  ]
+}

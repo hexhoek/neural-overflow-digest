@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural Overflow Digest — Reader</title>
+  <meta name="description" content="Reading an issue of Neural Overflow Digest by HeX.">
+  <link rel="stylesheet" href="css/bbs.css">
+</head>
+<body>
+  <div class="terminal crt-glow">
+
+    <div class="box-top">╔══════════════════════════════════════════════════════════════════════════════╗</div>
+
+    <header class="reader-header">
+      <div>
+        <span style="color: var(--green);">NEURAL OVERFLOW DIGEST</span><br>
+        <span id="reader-issue-title" class="reader-title">Loading...</span>
+      </div>
+      <div id="lang-links"></div>
+    </header>
+
+    <div class="box-mid">╠══════════════════════════════════════════════════════════════════════════════╣</div>
+
+    <main id="reader-content" class="reader-content" aria-label="Issue content">
+      <div style="color: var(--dim);">Decoding transmission...</div>
+    </main>
+
+    <div class="box-mid">╠══════════════════════════════════════════════════════════════════════════════╣</div>
+
+    <nav class="reader-nav" aria-label="Navigation">
+      <a href="index.html" aria-label="Back to archive">[&larr; BACK TO ARCHIVE]</a>
+      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Scroll to top">[&uarr; TOP]</a>
+    </nav>
+
+    <div class="box-bottom">╚══════════════════════════════════════════════════════════════════════════════╝</div>
+
+    <div class="scanline-hint" aria-hidden="true">[S] scanlines</div>
+  </div>
+
+  <script src="js/terminal.js"></script>
+</body>
+</html>

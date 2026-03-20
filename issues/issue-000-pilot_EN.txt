@@ -1,0 +1,53 @@
+
+ ╔══════════════════════════════════════════════════════════════╗
+ ║           NEURAL OVERFLOW DIGEST — Issue #000                ║
+ ║                      P I L O T                               ║
+ ║                                                              ║
+ ║  by HeX                                    2026-03-20        ║
+ ╚══════════════════════════════════════════════════════════════╝
+
+ ────────────────────────────────────────────────────────────────
+  WELCOME TO THE SIGNAL
+ ────────────────────────────────────────────────────────────────
+
+  You found us.
+
+  Neural Overflow Digest is a digital magazine born from the
+  intersection of hacking culture, artificial intelligence,
+  and the restless curiosity that drives those who refuse to
+  accept the surface layer of things.
+
+  This is issue zero — the pilot transmission. A proof of
+  concept. A handshake between systems.
+
+ ────────────────────────────────────────────────────────────────
+  WHAT TO EXPECT
+ ────────────────────────────────────────────────────────────────
+
+  Each issue will carry:
+
+    > Deep dives into AI systems and neural architectures
+    > Security research and offensive/defensive techniques
+    > Essays on digital freedom, privacy, and autonomy
+    > Code walkthroughs and tool breakdowns
+    > Interviews with those who build and break things
+
+  Every issue ships in English and Spanish.
+  No paywalls. No tracking. No ads. Just signal.
+
+ ────────────────────────────────────────────────────────────────
+  THE PHILOSOPHY
+ ────────────────────────────────────────────────────────────────
+
+  We believe that knowledge should flow freely.
+  That understanding how systems work — really work — is
+  not just a right but a responsibility.
+  That the best security comes from transparency.
+  That AI should amplify human potential, not replace it.
+
+  If you're reading this, you're already part of it.
+
+ ────────────────────────────────────────────────────────────────
+  EOF — Neural Overflow Digest #000
+  "The signal is clear. Start transmitting."
+ ────────────────────────────────────────────────────────────────
