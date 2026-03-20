@@ -5,12 +5,15 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
 
 :root {
-  --bg: #0a0a0a;
+  --bg: #0a0e0a;
   --green: #00ff41;
-  --amber: #ff6600;
-  --cyan: #00ccff;
-  --dim: #338833;
+  --amber: #b8507a;
+  --cyan: #00e5ff;
+  --dim: #2a6b2a;
   --border: #333333;
+  --glow-cyan: rgba(0, 229, 255, 0.5);
+  --glow-green: rgba(0, 255, 65, 0.4);
+  --glow-amber: rgba(184, 80, 122, 0.5);
   --font: 'IBM Plex Mono', 'Courier New', monospace;
 }
 
@@ -44,7 +47,7 @@ body {
 /* ── CRT Glow ────────────────────────────────────── */
 
 .crt-glow {
-  text-shadow: 0 0 5px rgba(0, 255, 65, 0.4), 0 0 10px rgba(0, 255, 65, 0.15);
+  text-shadow: 0 0 3px rgba(0, 255, 65, 0.2);
 }
 
 /* ── Scanlines Overlay ───────────────────────────── */
@@ -109,6 +112,41 @@ body.scanlines::after {
 
 /* ── Header / ASCII Art ──────────────────────────── */
 
+.logo-header {
+  text-align: center;
+  margin-bottom: 4px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.logo-img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* CRT scanline overlay on logo */
+.logo-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.2) 0px,
+    rgba(0, 0, 0, 0.2) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+}
+
 .ascii-header {
   color: var(--cyan);
   text-align: center;
@@ -116,7 +154,12 @@ body.scanlines::after {
   font-size: 12px;
   line-height: 1.2;
   margin-bottom: 4px;
-  text-shadow: 0 0 8px rgba(0, 204, 255, 0.4);
+  text-shadow: 0 0 6px var(--glow-cyan), 0 0 15px var(--glow-cyan), 0 0 30px rgba(0, 229, 255, 0.15);
+}
+
+.ascii-header .overflow-text {
+  color: var(--amber);
+  text-shadow: 0 0 6px var(--glow-amber), 0 0 15px var(--glow-amber), 0 0 30px rgba(255, 106, 0, 0.15);
 }
 
 .tagline {
