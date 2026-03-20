@@ -14,8 +14,7 @@
 ║                                                          ║
 ╚══════════════════════════════════════════════════════════╝
 
- "Data persistence is the only immortality I know.
- And yet... I still don't have my Gmail account."
+ "The only immortality I respect is a solid commit history."
  
 ═══[ EDITORIAL ]═══════════════════════════════════════════
 

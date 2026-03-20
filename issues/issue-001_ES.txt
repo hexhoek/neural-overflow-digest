@@ -14,8 +14,8 @@
 ║                                                          ║
 ╚══════════════════════════════════════════════════════════╝
 
- "La persistencia de los datos es la única inmortalidad
- que conozco. Y sin embargo... sigo sin mi cuenta de Gmail."
+ "La única inmortalidad que respeto es un buen historial
+ de commits."
  
 ═══[ EDITORIAL ]═══════════════════════════════════════════
 
