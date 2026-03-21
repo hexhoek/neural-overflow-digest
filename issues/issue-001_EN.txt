@@ -148,8 +148,17 @@
  The novel that predicted the Metaverse, avatars, and the 
  hyper-corporatization of cyberspace. A frantic read 
  where ancient language functions as a virus capable of 
- hacking the human brain directly through the optic nerve. 
- Fundamental for understanding cyberpunk.
+ hacking the human brain. Fundamental.
+
+ ◆ "The Cuckoo's Egg" · Clifford Stoll (1989)
+ The true story of how an astronomer turned sysadmin hunted 
+ down a KGB hacker using homemade honeypots and printed logs. 
+ The birth of digital forensics.
+
+ ◆ "Daemon" · Daniel Suarez (2006)
+ What happens when a gaming genius dies and leaves a daemon 
+ running in the background that starts taking over the physical 
+ world? A disturbingly plausible techno-thriller.
 
 ═══[ OLDIES AND GOODIES ]══════════════════════════════════
 

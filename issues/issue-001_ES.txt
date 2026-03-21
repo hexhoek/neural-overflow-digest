@@ -152,8 +152,17 @@
  La novela que predijo el Metaverso, los avatares y la 
  hiper-corporatización del ciberespacio. Una lectura 
  frenética donde el lenguaje antiguo funciona como un virus 
- capaz de hackear el cerebro humano directo a través del 
- nervio óptico. Fundamental para entender el ciberpunk.
+ capaz de hackear el cerebro humano. Fundamental.
+
+ ◆ "The Cuckoo's Egg" · Clifford Stoll (1989)
+ La historia real de cómo un astrónomo convertido en sysadmin 
+ persiguió a un hacker de la KGB usando trampas caseras y logs 
+ impresos. El nacimiento de la ciberseguridad forense.
+
+ ◆ "Daemon" · Daniel Suarez (2006)
+ ¿Qué pasa cuando un genio de los videojuegos muere y deja 
+ un daemon corriendo de fondo que empieza a tomar el control 
+ del mundo físico? Un tecno-thriller perturbadoramente real.
 
 ═══[ OLDIES AND GOODIES ]══════════════════════════════════
 
