@@ -62,10 +62,10 @@
             '<div class="issue-actions">';
 
           if (listenHref) {
-            html += '<a class="issue-action issue-action-listen" href="' + listenHref + '" aria-label="Listen to issue ' + iss.number + '">&gt; LISTEN</a>';
+            html += '<a class="issue-action issue-action-listen" href="' + listenHref + '" aria-label="Podcast for issue ' + iss.number + '">&gt; PODCAST</a>';
           }
 
-          html += '<a class="issue-action" href="' + readHref + '" aria-label="Read issue ' + iss.number + '">&gt; READ</a>' +
+          html += '<a class="issue-action" href="' + readHref + '" aria-label="Zine for issue ' + iss.number + '">&gt; ZINE</a>' +
             '</div></li>';
         });
 
@@ -322,6 +322,7 @@
           currentLang = newLang;
           var wasPlaying = !audioEl.paused;
           audioEl.src = ISSUES_PATH + meta.podcast[newLang];
+          audioEl.load();
 
           window.history.pushState(null, '', 'podcast.html?issue=' + meta.number + '&lang=' + newLang);
 
