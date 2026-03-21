@@ -313,7 +313,7 @@
         audioEl.src = ISSUES_PATH + meta.podcast[currentLang];
 
         // Lang toggle for podcast (only bind once)
-        if (_langToggleBound['podcast']) return;
+        if (!_langToggleBound['podcast']) {
         _langToggleBound['podcast'] = true;
         document.addEventListener('click', function (e) {
           var link = e.target.closest('.lang-link');
@@ -345,6 +345,7 @@
             });
           }
         });
+        } // end if !_langToggleBound
       });
 
     // Web Audio API setup
@@ -458,14 +459,16 @@
       }
     });
 
-    // Seek
-    barEl.addEventListener('click', function (e) {
-      if (audioEl.duration && !isNaN(audioEl.duration)) {
+    // Seek — use both click and mousedown for responsiveness
+    function handleSeek(e) {
+      if (audioEl.readyState >= 1 && audioEl.duration && !isNaN(audioEl.duration)) {
         var rect = barEl.getBoundingClientRect();
         var x = e.clientX - rect.left;
-        audioEl.currentTime = (x / rect.width) * audioEl.duration;
+        var pct = Math.max(0, Math.min(1, x / rect.width));
+        audioEl.currentTime = pct * audioEl.duration;
       }
-    });
+    }
+    barEl.addEventListener('click', handleSeek);
 
     // Ended
     audioEl.addEventListener('ended', function () {

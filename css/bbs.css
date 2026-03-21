@@ -487,6 +487,7 @@ a:focus-visible {
   background: var(--green);
   box-shadow: 0 0 8px var(--glow-green);
   transition: width 0.1s linear;
+  pointer-events: none;
 }
 
 /* ── Scanline Toggle Hint ────────────────────────── */
