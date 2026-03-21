@@ -149,7 +149,10 @@
       });
   }
 
+  var _langToggleBound = {};
   function setupLangToggle(contentEl, meta, currentLang, page) {
+    if (_langToggleBound[page]) return;
+    _langToggleBound[page] = true;
     document.addEventListener('click', function (e) {
       var link = e.target.closest('.lang-link');
       if (!link) return;
@@ -207,9 +210,11 @@
 
     // Resize canvas to match display size
     function resizeCanvas() {
-      canvas.width = canvas.offsetWidth * (window.devicePixelRatio || 1);
-      canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
-      ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+      var dpr = window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * dpr;
+      canvas.height = canvas.offsetHeight * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
     }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -307,7 +312,9 @@
         // Set initial audio
         audioEl.src = ISSUES_PATH + meta.podcast[currentLang];
 
-        // Lang toggle for podcast
+        // Lang toggle for podcast (only bind once)
+        if (_langToggleBound['podcast']) return;
+        _langToggleBound['podcast'] = true;
         document.addEventListener('click', function (e) {
           var link = e.target.closest('.lang-link');
           if (!link) return;
@@ -334,6 +341,7 @@
           if (wasPlaying) {
             audioEl.play().then(function () {
               ensureAudioCtx();
+              if (!animId) drawWaveform();
             });
           }
         });
@@ -354,9 +362,12 @@
 
     // Draw oscilloscope waveform
     function drawWaveform() {
-      animId = requestAnimationFrame(drawWaveform);
+      if (!analyser || audioEl.paused) {
+        animId = null;
+        return;
+      }
 
-      if (!analyser || audioEl.paused) return;
+      animId = requestAnimationFrame(drawWaveform);
 
       analyser.getByteTimeDomainData(dataArray);
 
@@ -449,7 +460,7 @@
 
     // Seek
     barEl.addEventListener('click', function (e) {
-      if (audioEl.duration) {
+      if (audioEl.duration && !isNaN(audioEl.duration)) {
         var rect = barEl.getBoundingClientRect();
         var x = e.clientX - rect.left;
         audioEl.currentTime = (x / rect.width) * audioEl.duration;
