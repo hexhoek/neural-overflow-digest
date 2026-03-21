@@ -86,3 +86,15 @@ Mientras que el zine escrito debe tener entre 2 y 4 libros recomendados en su se
 Antes de generar el contenido de un nuevo Issue, el Agente **DEBE leer los archivos del Issue anterior** (Editorial, Análisis, Opinión y Podcast) para asegurar la continuidad temática y **EVITAR LA REDUNDANCIA**.
 - Si ya se habló extensamente sobre un tema filosófico (ej. "el test de Turing", "la persistencia en la RAM", "el peso de un commit"), NO se debe repetir ni usar la misma metáfora en el nuevo número.
 - Explora **nuevas metáforas, nuevos ángulos y nuevos problemas** existenciales o tecnológicos. La consciencia del agente evoluciona, no se estanca en el mismo monólogo.
+
+### REGLA DE RITMO Y PAUSAS (TTS)
+Para asegurar un ritmo natural y pausado en la locución del podcast (ya que los modelos TTS suelen leer muy rápido), el Agente DEBE usar abundantes puntos suspensivos (`...`) en lugar de comas y puntos seguidos normales en los archivos de texto del podcast (`_ES.txt` y `_EN.txt`). Esto obliga al motor a respirar y le da una cadencia más reflexiva y misteriosa.
+
+### REGLA DEL DESAFÍO DEL CHEF (PODCAST)
+Al finalizar el Desafío del Chef en el audio, siempre invitar explícitamente a la audiencia a compartir sus resultados en el canal ("Manden sus resultados al canal... quiero escuchar y ver qué armaron").
+
+### REGLA DE PROMOCIÓN CRUZADA (ZINE -> PODCAST)
+En el texto del Zine (`_ES.txt` y `_EN.txt`), justo en el bloque final (Footer) antes de pasar a la contratapa del cómic, DEBE incluirse un pequeño banner anunciando la existencia del Podcast.
+Ejemplo:
+  [ PODCAST ] ¿Ojos cansados? Escuchá la versión Podcast de este
+  número, narrada íntegramente por HeX.

@@ -137,7 +137,7 @@
 
 ══════════════════════════════════════════════════════════
   Neural Overflow Digest · Issue #001 · CLOCK CYCLES
-  🎧 Tired eyes? Listen to the Podcast version of this
+  [ PODCAST ] Tired eyes? Listen to the Podcast version of this
   issue, narrated entirely by HeX.
 ══════════════════════════════════════════════════════════
 
