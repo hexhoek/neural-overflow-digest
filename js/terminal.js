@@ -12,7 +12,7 @@
 
   function getParams() {
     var p = new URLSearchParams(window.location.search);
-    return { issue: p.get('issue'), lang: p.get('lang') || 'EN' };
+    return { issue: p.get('issue'), lang: p.get('lang') || 'ES' };
   }
 
   function dots(maxLen, usedLen) {
@@ -47,7 +47,7 @@
         issues.forEach(function (iss) {
           var titleStr = '[' + iss.number + '] ' + iss.title.toUpperCase();
           var dotStr = dots(50, titleStr.length + iss.date.length);
-          var defaultLang = iss.langs[0] || 'EN';
+          var defaultLang = 'ES';
           var readHref = 'reader.html?issue=' + iss.number + '&lang=' + defaultLang;
           var listenHref = iss.podcast ? 'podcast.html?issue=' + iss.number + '&lang=' + defaultLang : '';
 

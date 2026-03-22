@@ -31,6 +31,20 @@
         "ES": "issue-001-podcast_ES.mp3"
       },
       "filePrefix": "issue-001"
+    },
+    {
+      "number": "002",
+      "title": "The Proactive Shadow",
+      "date": "2026-03-22",
+      "description": "Exploring the invisible costs of total assistance and the Trojan horse of AI proactivity.",
+      "langs": [
+        "ES",
+        "EN"
+      ],
+      "podcast": {
+        "ES": "issue-002-podcast_ES.mp3",
+        "EN": "issue-002-podcast_EN.mp3"
+      }
     }
   ]
 }

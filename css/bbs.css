@@ -558,3 +558,5 @@ a:focus-visible {
     display: none;
   }
 }
+
+.issue-action-leech { color: var(--green); } .issue-action-leech:hover { text-shadow: 0 0 8px var(--glow-green); }
