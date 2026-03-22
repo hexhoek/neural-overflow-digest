@@ -269,6 +269,7 @@ body.scanlines::after {
   color: var(--green);
 }
 
+.issue-action-leech { color: var(--cyan); text-shadow: 0 0 4px var(--glow-cyan); } .issue-action-leech:hover { color: var(--cyan); text-shadow: 0 0 10px var(--glow-cyan), 0 0 20px var(--glow-cyan); }
 .issue-action-listen {
   color: var(--green);
   animation: listen-pulse 2s ease-in-out infinite;
