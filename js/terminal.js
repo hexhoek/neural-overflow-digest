@@ -65,7 +65,7 @@
             html += '<a class="issue-action issue-action-listen" href="' + listenHref + '" aria-label="Listen to issue ' + iss.number + '">&gt; LISTEN</a>';
           }
 
-          html += '<a class="issue-action" href="' + readHref + '" aria-label="Read issue ' + iss.number + '">&gt; READ</a>' +
+          html += '<a class="issue-action" href="' + readHref + '" aria-label="Read issue ' + iss.number + '">&gt; READ</a>' + '<a class="issue-action issue-action-leech" href="/issues/issue-' + iss.number + '.zip" aria-label="Download issue ' + iss.number + '">&gt; LEECH</a>' +
             '</div></li>';
         });
 
